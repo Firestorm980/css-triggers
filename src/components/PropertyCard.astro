@@ -1,0 +1,33 @@
+---
+import PropertyTable from './PropertyTable.astro';
+export interface Results {
+    layout: boolean | null;
+    paint: boolean | null;
+    composite: boolean | null;
+}
+
+export interface Browsers {
+    blink: Results;
+    gecko: Results;
+    webkit: Results;
+    edgehtml: Results;
+}
+
+export interface Props {
+	property: string;
+    initial: Browsers;
+    change: Browsers;
+}
+
+const { property, initial, change } = Astro.props;
+---
+<section id={property} tabindex="-1">
+    <h2>{property}</h2>
+
+    <PropertyTable results={initial} caption={`Change from default for ${property}`} />
+    <PropertyTable results={change} caption={`Subsequent updates for ${property}`} />
+
+</section>
+<style>
+
+</style>

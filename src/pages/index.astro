@@ -1,0 +1,25 @@
+---
+import PropertyCard from '@components/PropertyCard.astro';
+import Layout from '@layouts/Layout.astro';
+import json from '@data/data.json';
+
+const { data } = json;
+const properties = Object.keys(data);
+console.log(properties);
+---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
+		<p class="instructions">
+			To get started, open the directory <code>src/pages</code> in your project.<br />
+			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+		</p>
+		{properties.map((property) => {
+            const { initial, change } = data[property];
+            return (<PropertyCard initial={initial} change={change} property={property} />);
+        })}
+	</main>
+</Layout>
+<style>
+</style>

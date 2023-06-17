@@ -1,0 +1,60 @@
+---
+export interface Results {
+    layout: boolean | null;
+    paint: boolean | null;
+    composite: boolean | null;
+}
+
+export interface Browsers {
+    blink: Results;
+    gecko: Results;
+    webkit: Results;
+    edgehtml: Results;
+}
+
+export interface Astro {
+    results: Browsers;
+    caption: string;
+}
+
+const { results, caption } = Astro.props;
+const browsers = Object.keys(results);
+
+---
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            {browsers.map((browser) => <th>{browser}</th>)}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>layout</th>
+            {browsers.map((browser) => <td>{results[browser].layout ? 'yes': 'no'}</td>)}
+        </tr>
+        <tr>
+            <th>paint</th>
+            {browsers.map((browser) => <td>{results[browser].paint ? 'yes': 'no'}</td>)}
+        </tr>
+        <tr>
+            <th>composite</th>
+            {browsers.map((browser) => <td>{results[browser].composite ? 'yes': 'no'}</td>)}
+        </tr>
+    </tbody>
+    <caption>{caption}</caption>
+</table>
+<style>
+    table {
+        caption-side: bottom;
+    }
+    th, td {
+        padding: 0.5em;
+        text-align: center;
+    }
+    caption {
+        font-size: 0.8em;
+        font-style: italic;
+    }
+</style>
