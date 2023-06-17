@@ -1,13 +1,82 @@
 ---
-export interface AstroProps {
-  value: boolean | null;
+import { Result } from 'src/types';
+export interface Props {
+  value: Result;
+	kind: string;
 }
 
-const { value } = Astro.props;
+const { value, kind } = Astro.props;
 
+let text = '';
+let icon = '';
 
+switch (value) {
+	case true:
+		text = 'Yes';
+		icon = 'check';
+		break;
+	case false:
+		text = 'No';
+		icon = 'clear';
+		break;
+	default:
+		text = 'Unknown';
+		icon = 'remove';
+		break;
+}
 ---
 
-<td>
-
+<td class={`kind kind-${kind}`}>
+	<span class="screen-reader-text">
+		{text}
+	</span>
+	<span aria-hidden="true">
+		<svg class={`icon icon-${icon}`}><use xlink:href={`#icon-${icon}`}></use></svg>
+	</span>
 </td>
+<style>
+	td {
+		text-align: center;
+	}
+
+	.icon {
+		color: white;
+		border-radius: 0.5em;
+		width: 100%;
+		max-width: 4em;
+		height: 1em;
+		vertical-align: middle;
+		fill: currentColor;
+		overflow: hidden;
+		padding: 0.5em;
+		display: flex;
+	}
+
+	.icon-clear {
+		color: black;
+	}
+
+
+	.kind-layout .icon {
+		background-color: #7c3aed;
+	}
+	.kind-layout .icon-clear {
+		background-color: #ddd6fe;
+	}
+	.kind-paint .icon {
+		background-color: #65a30d;
+	}
+	.kind-paint .icon-clear {
+		background-color: #d9f99d;
+	}
+	.kind-composite .icon {
+		background-color: #16a34a;
+	}
+	.kind-composite .icon-clear {
+		background-color: #bbf7d0;
+	}
+	.kind .icon-remove {
+		background-color: #e5e5e5;
+		color: black;
+	}
+</style>

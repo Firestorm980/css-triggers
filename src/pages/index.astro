@@ -5,7 +5,6 @@ import json from '@data/data.json';
 
 const { data } = json;
 const properties = Object.keys(data);
-console.log(properties);
 ---
 
 <Layout title="Welcome to Astro.">
@@ -15,11 +14,40 @@ console.log(properties);
 			To get started, open the directory <code>src/pages</code> in your project.<br />
 			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
 		</p>
-		{properties.map((property) => {
-            const { initial, change } = data[property];
-            return (<PropertyCard initial={initial} change={change} property={property} />);
-        })}
+		<div class="properties">
+			<div class="properties__sidebar">
+				<nav aria-label="Properties" class="properties__navigation">
+					<ul>
+						{properties.map((property) => {
+							return (<li><a href={`#${property}`}>{property}</a></li>);
+						})}
+					</ul>
+				</nav>
+			</div>
+			<div class="properties__content">
+				{properties.map((property) => {
+					const { initial, change } = data[property];
+					return (<PropertyCard initial={initial} change={change} property={property} />);
+				})}
+			</div>
+		</div>
 	</main>
 </Layout>
 <style>
+	.properties {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2em;
+	}
+
+	.properties__sidebar {
+		max-width: 30em;
+	}
+
+	.properties__navigation {
+		position: sticky;
+		top: 0;
+		overflow-y: auto;
+		max-height: 100dvh;
+	}
 </style>

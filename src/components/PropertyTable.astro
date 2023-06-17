@@ -1,25 +1,15 @@
 ---
-export interface Results {
-    layout: boolean | null;
-    paint: boolean | null;
-    composite: boolean | null;
-}
+import type { Browsers } from '../types';
+import PropertyTableCell from './PropertyTableCell.astro';
 
-export interface Browsers {
-    blink: Results;
-    gecko: Results;
-    webkit: Results;
-    edgehtml: Results;
-}
-
-export interface Astro {
+export interface Props {
     results: Browsers;
     caption: string;
 }
 
 const { results, caption } = Astro.props;
 const browsers = Object.keys(results);
-
+const kinds = ['layout', 'paint', 'composite'];
 ---
 
 <table>
@@ -30,31 +20,30 @@ const browsers = Object.keys(results);
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th>layout</th>
-            {browsers.map((browser) => <td>{results[browser].layout ? 'yes': 'no'}</td>)}
-        </tr>
-        <tr>
-            <th>paint</th>
-            {browsers.map((browser) => <td>{results[browser].paint ? 'yes': 'no'}</td>)}
-        </tr>
-        <tr>
-            <th>composite</th>
-            {browsers.map((browser) => <td>{results[browser].composite ? 'yes': 'no'}</td>)}
-        </tr>
+		{kinds.map((kind) => (
+			<tr>
+				<th>{kind}</th>
+				{browsers.map((browser) => <PropertyTableCell value={results[browser][kind]} kind={kind} />)}
+			</tr>
+		))}
     </tbody>
     <caption>{caption}</caption>
 </table>
 <style>
     table {
+		border-collapse: collapse;
         caption-side: bottom;
     }
     th, td {
         padding: 0.5em;
         text-align: center;
     }
+	tbody th {
+		text-align: end;
+	}
     caption {
         font-size: 0.8em;
         font-style: italic;
+		text-align: end;
     }
 </style>
