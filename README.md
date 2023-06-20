@@ -6,9 +6,8 @@ Tells you what gets triggered by mutating a given CSS property.
 
 1. Clone the project.
 1. Run `npm install` in __css-triggers__.
-1. Run `gulp` in __css-triggers__ to make a build.
-1. Run `node server.js`
-1. Go to [localhost:8070](http://localhost:8070/)
+1. Run `npm run start`
+1. Go to [localhost:3000](http://localhost:3000/)
 
 ## License
 
