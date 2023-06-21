@@ -10,7 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^2.6.4"
+    "astro": "^2.6.4",
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "eslint": "^8.43.0",
