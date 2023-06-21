@@ -21,12 +21,13 @@ const { property, initial, change } = Astro.props;
 </section>
 <script>
 	const copyLinkButton = document.getElementById('property-card-copy-link-button');
-
-	copyLinkButton.addEventListener('click', () => {
+	const handleButtonOnClick = () => {
 		const url = new URL(window.location.href);
 		url.hash = copyLinkButton.dataset.property;
 		navigator.clipboard.writeText(url.toString());
-	});
+	};
+
+	copyLinkButton.addEventListener('click', handleButtonOnClick);
 </script>
 <style>
 	.property-card {
