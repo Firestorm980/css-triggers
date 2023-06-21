@@ -9,32 +9,23 @@ const title = "CSS Triggers";
 ---
 
 <Layout title={title}>
-	<div class="content">
-		<h1>{title}</h1>
-		<div class="properties">
-			<div class="properties__content">
-				{properties.map((property) => {
-					const { initial, change } = data[property];
-					return (<PropertyCard initial={initial} change={change} property={property} />);
-				})}
-			</div>
+	<h1>{title}</h1>
+	<div class="properties">
+		<div class="properties__content">
+			{properties.map((property) => {
+				const { initial, change } = data[property];
+				return (<PropertyCard initial={initial} change={change} property={property} />);
+			})}
 		</div>
 	</div>
 </Layout>
 <style>
-	.content {
-		padding: 2em;
-
-		& > * {
-			margin-inline: auto;
-			max-width: 80ch;
-		}
-	}
 	.properties {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 2em;
 	}
+
 	.properties__content {
 		display: flex;
 		flex-direction: column;

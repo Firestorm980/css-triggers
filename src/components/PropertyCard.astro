@@ -30,19 +30,22 @@ const { property, initial, change } = Astro.props;
 </script>
 <style>
 	.property-card {
-		border: 1px solid #ccc;
+		background-color: var(--color-white);
+		border: 1px solid var(--color-silver);
 		border-radius: 0.5em;
-		box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
 		padding: 1em;
 
 		&:target {
-			border-color: #000;
+			border-color: var(--color-black);
 		}
 	}
+
 	.property-card__heading {
 		font-family: monospace;
 		margin-block-start: 0;
 	}
+
 	.property-card__tables {
 		display: flex;
 		flex-wrap: wrap;

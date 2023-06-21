@@ -38,46 +38,55 @@ switch (value) {
 	td {
 		text-align: center;
 	}
+
 	.icon {
 		border-radius: 0.5em;
 		color: white;
 		display: flex;
-		fill: currentColor;
+		fill: currentcolor;
 		justify-content: center;
 		overflow: hidden;
 		padding: 0.25em;
 		width: 5em;
 
 		& svg {;
-			fill: currentColor;
-			width: 1em;
+			fill: currentcolor;
 			height: 1em;
 			vertical-align: middle;
+			width: 1em;
 		}
 	}
+
 	.icon-clear {
 		color: black;
 	}
+
 	.kind-layout .icon {
-		background-color: #7c3aed;
+		background-color: var(--color-purple);
 	}
+
 	.kind-layout .icon-clear {
-		background-color: #ddd6fe;
+		background-color: color-mix(in srgb, var(--color-purple) 20%, var(--color-white) );
 	}
+
 	.kind-paint .icon {
-		background-color: #65a30d;
+		background-color: var(--color-green);
 	}
+
 	.kind-paint .icon-clear {
-		background-color: #d9f99d;
+		background-color: color-mix(in srgb, var(--color-green) 20%, var(--color-white) );
 	}
+
 	.kind-composite .icon {
-		background-color: #16a34a;
+		background-color: var(--color-olive);
 	}
+
 	.kind-composite .icon-clear {
-		background-color: #bbf7d0;
+		background-color: color-mix(in srgb, var(--color-olive) 20%, var(--color-white) );
 	}
+
 	.kind .icon-remove {
-		background-color: #e5e5e5;
-		color: black;
+		background-color: var(--color-silver);
+		color: var(--color-black);
 	}
 </style>
