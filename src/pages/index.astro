@@ -5,25 +5,13 @@ import json from '@data/data.json';
 
 const { data } = json;
 const properties = Object.keys(data);
+const title = "CSS Triggers";
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
+<Layout title={title}>
+	<div class="content">
+		<h1>{title}</h1>
 		<div class="properties">
-			<div class="properties__sidebar">
-				<nav aria-label="Properties" class="properties__navigation">
-					<ul>
-						{properties.map((property) => {
-							return (<li><a href={`#${property}`}>{property}</a></li>);
-						})}
-					</ul>
-				</nav>
-			</div>
 			<div class="properties__content">
 				{properties.map((property) => {
 					const { initial, change } = data[property];
@@ -31,23 +19,25 @@ const properties = Object.keys(data);
 				})}
 			</div>
 		</div>
-	</main>
+	</div>
 </Layout>
 <style>
+	.content {
+		padding: 2em;
+
+		& > * {
+			margin-inline: auto;
+			max-width: 80ch;
+		}
+	}
 	.properties {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 2em;
 	}
-
-	.properties__sidebar {
-		max-width: 30em;
-	}
-
-	.properties__navigation {
-		position: sticky;
-		top: 0;
-		overflow-y: auto;
-		max-height: 100dvh;
+	.properties__content {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
 	}
 </style>

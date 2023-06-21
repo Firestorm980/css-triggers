@@ -30,33 +30,34 @@ switch (value) {
 	<span class="screen-reader-text">
 		{text}
 	</span>
-	<span aria-hidden="true">
-		<svg class={`icon icon-${icon}`}><use xlink:href={`#icon-${icon}`}></use></svg>
+	<span aria-hidden="true" class={`icon icon-${icon}`}>
+		<svg><use xlink:href={`#icon-${icon}`}></use></svg>
 	</span>
 </td>
 <style>
 	td {
 		text-align: center;
 	}
-
 	.icon {
-		color: white;
 		border-radius: 0.5em;
-		width: 100%;
-		max-width: 4em;
-		height: 1em;
-		vertical-align: middle;
-		fill: currentColor;
-		overflow: hidden;
-		padding: 0.5em;
+		color: white;
 		display: flex;
-	}
+		fill: currentColor;
+		justify-content: center;
+		overflow: hidden;
+		padding: 0.25em;
+		width: 5em;
 
+		& svg {;
+			fill: currentColor;
+			width: 1em;
+			height: 1em;
+			vertical-align: middle;
+		}
+	}
 	.icon-clear {
 		color: black;
 	}
-
-
 	.kind-layout .icon {
 		background-color: #7c3aed;
 	}

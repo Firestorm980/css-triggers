@@ -10,12 +10,42 @@ export interface Props {
 
 const { property, initial, change } = Astro.props;
 ---
-<section id={property} tabindex="-1">
-    <h2>{property}</h2>
+<section id={property} tabindex="-1" class="property-card">
+    <h2 class="property-card__heading">{property}</h2>
+	<button type="button" id="property-card-copy-link-button" data-property={property}>Copy Link<span class="screen-reader-text">for {property}</span></button>
 
-    <PropertyTable results={initial} caption={`Change from default for ${property}`} />
-    <PropertyTable results={change} caption={`Subsequent updates for ${property}`} />
+	<div class="property-card__tables">
+		<PropertyTable results={initial} caption={`Change from default for ${property}`} />
+		<PropertyTable results={change} caption={`Subsequent updates for ${property}`} />
+	</div>
 </section>
-<style>
+<script>
+	const copyLinkButton = document.getElementById('property-card-copy-link-button');
 
+	copyLinkButton.addEventListener('click', () => {
+		const url = new URL(window.location.href);
+		url.hash = copyLinkButton.dataset.property;
+		navigator.clipboard.writeText(url.toString());
+	});
+</script>
+<style>
+	.property-card {
+		border: 1px solid #ccc;
+		border-radius: 0.5em;
+		box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+		padding: 1em;
+
+		&:target {
+			border-color: #000;
+		}
+	}
+	.property-card__heading {
+		font-family: monospace;
+		margin-block-start: 0;
+	}
+	.property-card__tables {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2em;
+	}
 </style>
