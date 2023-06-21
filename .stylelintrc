@@ -1,0 +1,18 @@
+{
+	"extends": ["stylelint-config-standard", "stylelint-config-astro"],
+	"rules": {
+		"indentation": "tab",
+		"no-descending-specificity": null,
+		"selector-class-pattern": "^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$",
+		"order/properties-alphabetical-order": true,
+		"rule-empty-line-before": [
+			"always",
+			{
+				"ignore": [ "after-comment" ]
+			}
+		]
+	},
+	"plugins": [
+		"stylelint-order"
+	]
+  }
