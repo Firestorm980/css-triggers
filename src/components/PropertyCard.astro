@@ -1,6 +1,7 @@
 ---
 import { Browsers } from 'src/types';
 import PropertyTable from './PropertyTable.astro';
+import Icon from './Icon.astro';
 
 export interface Props {
 	property: string;
@@ -11,40 +12,48 @@ export interface Props {
 const { property, initial, change } = Astro.props;
 ---
 <section id={property} tabindex="-1" class="property-card">
-    <h2 class="property-card__heading">{property}</h2>
-	<button type="button" id="property-card-copy-link-button" data-property={property}>Copy Link<span class="screen-reader-text">for {property}</span></button>
+	<header class="property-card__header">
+		<h2 class="property-card__heading">
+			{property}
+		</h2>
+
+		<a href={`#${property}`}>
+			<span class="screen-reader-text">Copy link for {property}</span>
+			<Icon icon="link" />
+		</a>
+	</header>
 
 	<div class="property-card__tables">
 		<PropertyTable results={initial} caption={`Change from default for ${property}`} />
 		<PropertyTable results={change} caption={`Subsequent updates for ${property}`} />
 	</div>
 </section>
-<script>
-	const copyLinkButton = document.getElementById('property-card-copy-link-button');
-	const handleButtonOnClick = () => {
-		const url = new URL(window.location.href);
-		url.hash = copyLinkButton.dataset.property;
-		navigator.clipboard.writeText(url.toString());
-	};
-
-	copyLinkButton.addEventListener('click', handleButtonOnClick);
-</script>
 <style>
 	.property-card {
 		background-color: var(--color-white);
 		border: 1px solid var(--color-silver);
 		border-radius: 0.5em;
 		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
 		padding: 1em;
+		scroll-margin-block: 5rem;
 
 		&:target {
 			border-color: var(--color-black);
 		}
 	}
 
+	.property-card__header {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1em;
+	}
+
 	.property-card__heading {
 		font-family: monospace;
-		margin-block-start: 0;
+		margin-block: 0;
 	}
 
 	.property-card__tables {

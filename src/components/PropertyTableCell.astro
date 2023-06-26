@@ -1,5 +1,6 @@
 ---
 import { Result } from 'src/types';
+import Icon from '@components/Icon.astro';
 export interface Props {
   value: Result;
 	kind: string;
@@ -30,8 +31,8 @@ switch (value) {
 	<span class="screen-reader-text">
 		{text}
 	</span>
-	<span aria-hidden="true" class={`icon icon-${icon}`}>
-		<svg><use xlink:href={`#icon-${icon}`}></use></svg>
+	<span class={`icon icon-${icon}`}>
+		<Icon icon={icon} />
 	</span>
 </td>
 <style>

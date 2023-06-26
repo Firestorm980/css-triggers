@@ -1,0 +1,13 @@
+---
+const { icon } = Astro.props;
+---
+<svg aria-hidden="true"><use xlink:href={`#icon-${icon}`}></use></svg>
+
+<style>
+	svg {
+		aspect-ratio: 1 / 1;
+		fill: currentcolor;
+		height: 1em;
+		vertical-align: middle;
+	}
+</style>
