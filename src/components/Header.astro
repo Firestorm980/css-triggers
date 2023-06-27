@@ -7,18 +7,32 @@ const { data } = json;
 const properties = Object.keys(data);
 ---
 <header class="site-header">
-	<a class="site-logo" href={base}>
-		CSS Triggers
-	</a>
-	<button type="button" id="site-header-disclosure-button-open">
-		Menu
-		<Icon icon="menu" />
-	</button>
+	<div class="site-header__start">
+		<a class="site-logo" href={base}>
+			CSS Triggers
+		</a>
+	</div>
+	<div class="site-header__end">
+		<a class="icon-link" href="https://github.com/Firestorm980/css-triggers">
+			GitHub Repo
+			<span class="icon icon-github">
+				<Icon icon="github" />
+			</span>
+		</a>
+		<button type="button" id="site-header-disclosure-button-open">
+			Menu
+			<span class="icon icon-menu">
+				<Icon icon="menu" />
+			</span>
+		</button>
+	</div>
 	<div class="site-header__disclosure" id="site-header-disclosure">
 		<div class="site-header__disclosure-header">
 			<button type="button" id="site-header-disclosure-button-close">
 				Close
-				<Icon icon="clear" />
+				<span class="icon icon-clear">
+					<Icon icon="clear" />
+				</span>
 			</button>
 		</div>
 		<div class="site-header__disclosure-content">
@@ -52,8 +66,17 @@ const properties = Object.keys(data);
 		width: 100%;
 	}
 
+	.site-header__end {
+		align-items: center;
+		display: flex;
+		gap: 1em;
+	}
+
 	.site-logo {
-		color: var(--color-black);
+		background-clip: text;
+		background-color: var(--color-black);
+		background-image: linear-gradient(to right, var(--color-purple) 0%, var(--color-olive) 50%, var(--color-green) 100%);
+		color: transparent;
 		font-size: 1.75em;
 		font-weight: 700;
 		text-decoration: none;
@@ -89,13 +112,34 @@ const properties = Object.keys(data);
 		padding: 2rem;
 	}
 
+	.icon {
+		display: flex;
+		font-size: 1.5em;
+	}
+
+	.icon-link {
+		align-items: center;
+		color: var(--color-black);
+		display: inline-flex;
+		font-weight: 700;
+		gap: 0.5em;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			background-color: transparent;
+			color: var(--color-purple);
+		}
+	}
+
 	button {
 		align-items: center;
-		background-color: var(--color-navy);
-		border: 2px solid var(--color-navy);
+		background-color: var(--color-black);
+		border: 0;
 		border-radius: 0.25em;
 		color: var(--color-white);
 		display: inline-flex;
+		font-weight: 700;
 		gap: 0.25em;
 		line-height: 1;
 		padding: 0.5em 1em;
@@ -104,7 +148,7 @@ const properties = Object.keys(data);
 
 		&:hover,
 		&:focus {
-			background-color: var(--color-blue);
+			background-color: var(--color-purple);
 		}
 	}
 
