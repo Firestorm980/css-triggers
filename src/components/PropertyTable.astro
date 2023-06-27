@@ -1,0 +1,53 @@
+---
+import type { Browsers } from '../types';
+import PropertyTableCell from './PropertyTableCell.astro';
+
+export interface Props {
+    results: Browsers;
+    caption: string;
+}
+
+const { results, caption } = Astro.props;
+const browsers = Object.keys(results).filter((browser) => browser !== 'edgehtml');
+const kinds = ['layout', 'paint', 'composite'];
+---
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            {browsers.map((browser) => <th>{browser}</th>)}
+        </tr>
+    </thead>
+    <tbody>
+		{kinds.map((kind) => (
+			<tr>
+				<th>{kind}</th>
+				{browsers.map((browser) => <PropertyTableCell value={results[browser][kind]} kind={kind} />)}
+			</tr>
+		))}
+    </tbody>
+    <caption>{caption}</caption>
+</table>
+<style>
+	table {
+		border-collapse: collapse;
+		caption-side: bottom;
+	}
+
+	th, td {
+		padding: 0.5em;
+		text-align: center;
+	}
+
+	tbody th {
+		text-align: end;
+	}
+
+	caption {
+		font-size: 0.8em;
+		font-style: italic;
+		padding: 0.5em;
+		text-align: end;
+	}
+</style>

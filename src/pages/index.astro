@@ -1,0 +1,35 @@
+---
+import PropertyCard from '@components/PropertyCard.astro';
+import Layout from '@layouts/Layout.astro';
+import json from '@data/data.json';
+
+const { data } = json;
+const properties = Object.keys(data);
+const title = "CSS Triggers";
+---
+
+<Layout title={title}>
+	<h1 class="screen-reader-text">{title}</h1>
+	<div class="properties">
+		<div class="properties__content">
+			{properties.map((property) => {
+				const { initial, change } = data[property];
+				return (<PropertyCard initial={initial} change={change} property={property} />);
+			})}
+		</div>
+	</div>
+</Layout>
+<style>
+	.properties {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2em;
+	}
+
+	.properties__content {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
+		width: 100%;
+	}
+</style>

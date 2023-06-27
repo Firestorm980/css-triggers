@@ -1,0 +1,93 @@
+---
+import { Result } from 'src/types';
+import Icon from '@components/Icon.astro';
+export interface Props {
+  value: Result;
+	kind: string;
+}
+
+const { value, kind } = Astro.props;
+
+let text = '';
+let icon = '';
+
+switch (value) {
+	case true:
+		text = 'Yes';
+		icon = 'check';
+		break;
+	case false:
+		text = 'No';
+		icon = 'clear';
+		break;
+	default:
+		text = 'Unknown';
+		icon = 'remove';
+		break;
+}
+---
+
+<td class={`kind kind-${kind}`}>
+	<span class="screen-reader-text">
+		{text}
+	</span>
+	<span class={`icon icon-${icon}`}>
+		<Icon icon={icon} />
+	</span>
+</td>
+<style>
+	td {
+		text-align: center;
+	}
+
+	.icon {
+		border-radius: 0.5em;
+		color: white;
+		display: flex;
+		fill: currentcolor;
+		justify-content: center;
+		overflow: hidden;
+		padding: 0.25em;
+		width: 4em;
+
+		& svg {;
+			fill: currentcolor;
+			height: 1em;
+			vertical-align: middle;
+			width: 1em;
+		}
+	}
+
+	.icon-clear {
+		color: black;
+	}
+
+	.kind-layout .icon {
+		background-color: var(--color-purple);
+	}
+
+	.kind-layout .icon-clear {
+		background-color: color-mix(in srgb, var(--color-purple) 20%, var(--color-white) );
+	}
+
+	.kind-composite .icon {
+		background-color: var(--color-green);
+	}
+
+	.kind-composite .icon-clear {
+		background-color: color-mix(in srgb, var(--color-green) 20%, var(--color-white) );
+	}
+
+	.kind-paint .icon {
+		background-color: var(--color-olive);
+	}
+
+	.kind-paint .icon-clear {
+		background-color: color-mix(in srgb, var(--color-olive) 20%, var(--color-white) );
+	}
+
+	.kind .icon-remove {
+		background-color: var(--color-silver);
+		color: var(--color-black);
+	}
+</style>
