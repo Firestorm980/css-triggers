@@ -9,7 +9,7 @@ const properties = Object.keys(data);
 <header class="site-header">
 	<div class="site-header__start">
 		<a class="site-logo" href={base}>
-			CSS Triggers
+			{'{} Triggers'}
 		</a>
 	</div>
 	<div class="site-header__end">
@@ -48,13 +48,13 @@ const properties = Object.keys(data);
 		</div>
 	</div>
 </header>
-<style>
+<style is:global>
 	.site-header {
 		--header-height: 4.5rem;
 
 		align-items: center;
-		background-color: var(--color-white);
-		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
+		background-color: var(--site-background);
+		border-block-end: 1px solid var(--site-accent);
 		display: flex;
 		height: var(--header-height);
 		justify-content: space-between;
@@ -74,7 +74,7 @@ const properties = Object.keys(data);
 
 	.site-logo {
 		background-clip: text;
-		background-color: var(--color-black);
+		background-color: var(--site-color);
 		background-image: linear-gradient(to right, var(--color-purple) 0%, var(--color-olive) 50%, var(--color-green) 100%);
 		color: transparent;
 		font-size: 1.75em;
@@ -84,29 +84,38 @@ const properties = Object.keys(data);
 
 	.site-header__disclosure {
 		align-items: flex-end;
-		background-color: var(--color-white);
-		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
+		background-color: var(--site-background);
+		border-inline-start: 1px solid var(--site-accent);
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
+		opacity: 0;
 		position: fixed;
 		right: 0;
 		top: 0;
 		transform: translateX(100%);
-		transition: transform 0.25s ease-in-out;
+		transition-duration: 0.25s;
+		transition-property: opacity, transform, visibility;
+		transition-timing-function: ease-in-out;
+		visibility: hidden;
 
 		&[data-open="true"] {
+			opacity: 1;
 			transform: translateX(0);
+			visibility: visible;
 		}
 	}
 
 	.site-header__disclosure-header {
+		border-block-end: 1px solid var(--site-accent);
+		display: flex;
 		height: var(--header-height);
+		justify-content: flex-end;
 		padding: 1rem;
+		width: 100%;
 	}
 
 	.site-header__disclosure-content {
-		border-block-start: 1px solid var(--color-silver);
 		height: 100%;
 		overflow: auto;
 		padding: 2rem;
@@ -119,7 +128,7 @@ const properties = Object.keys(data);
 
 	.icon-link {
 		align-items: center;
-		color: var(--color-black);
+		color: var(--site-color);
 		display: inline-flex;
 		font-weight: 700;
 		gap: 0.5em;
@@ -129,26 +138,7 @@ const properties = Object.keys(data);
 		&:focus {
 			background-color: transparent;
 			color: var(--color-purple);
-		}
-	}
-
-	button {
-		align-items: center;
-		background-color: var(--color-black);
-		border: 0;
-		border-radius: 0.25em;
-		color: var(--color-white);
-		display: inline-flex;
-		font-weight: 700;
-		gap: 0.25em;
-		line-height: 1;
-		padding: 0.5em 1em;
-		transition-duration: 0.25s;
-		vertical-align: middle;
-
-		&:hover,
-		&:focus {
-			background-color: var(--color-purple);
+			text-decoration: underline;
 		}
 	}
 
