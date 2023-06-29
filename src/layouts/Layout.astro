@@ -16,23 +16,33 @@ const { title } = Astro.props;
 <Head title={title} />
 <body>
 	<SVGDefs />
-	<Header />
-	<main id="content" role="main" tabindex="-1">
-		<div class="content">
-			<slot />
-		</div>
-	</main>
-	<Footer />
+	<div class="site">
+		<Header />
+		<main id="content" role="main" tabindex="-1" class="content">
+			<div class="content__inner">
+				<slot />
+			</div>
+		</main>
+		<Footer />
+	</div>
 </body>
 </html>
 <style is:global>
 	@import url('@assets/index.css');
 
-	.content {
-		padding: 2em 1em;
+	.site {
+		display: grid;
+		grid-template-columns: 20em 1fr;
 
-		& > * {
-			margin-inline: auto;
+		@media (width <= 42em) {
+			grid-template-columns: 0 1fr;
 		}
+	}
+
+	.content__inner {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
+		padding: 2em 1em;
 	}
 </style>

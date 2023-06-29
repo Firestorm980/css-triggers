@@ -2,6 +2,7 @@
 import PropertyCard from '@components/PropertyCard.astro';
 import Layout from '@layouts/Layout.astro';
 import json from '@data/data.json';
+import SearchForm from '@components/SearchForm.astro';
 
 const { data } = json;
 const properties = Object.keys(data);
@@ -10,6 +11,7 @@ const title = "CSS Triggers";
 
 <Layout title={title}>
 	<h1 class="screen-reader-text">{title}</h1>
+	<SearchForm />
 	<div class="properties">
 		<div class="properties__content">
 			{properties.map((property) => {
@@ -26,6 +28,5 @@ const title = "CSS Triggers";
 		grid-template-columns: 1fr;
 		justify-content: center;
 		margin-inline: auto;
-		max-width: 80ch;
 	}
 </style>

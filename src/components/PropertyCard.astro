@@ -19,7 +19,7 @@ const { property, initial, change } = Astro.props;
 
 		<a href={`#${property}`}>
 			<span class="screen-reader-text">Copy link for {property}</span>
-			<Icon icon="link" />
+			<Icon name="link" />
 		</a>
 	</header>
 	<div class="property-card__tables">
@@ -36,10 +36,10 @@ const { property, initial, change } = Astro.props;
 		flex-direction: column;
 		gap: 2em;
 		padding: 1em;
-		scroll-margin-block: 5rem;
+		scroll-margin-block: 1em;
 
 		&:target {
-			border-color: var(--site-color);
+			border-color: var(--site-accent);
 		}
 	}
 
@@ -47,6 +47,11 @@ const { property, initial, change } = Astro.props;
 		display: inline-flex;
 		flex-wrap: wrap;
 		gap: 1em;
+
+		& a {
+			border-radius: 0.25em;
+			padding: 0 0.5em;
+		}
 	}
 
 	.property-card__heading {

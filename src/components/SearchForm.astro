@@ -1,0 +1,49 @@
+---
+import Icon from "@components/Icon.astro";
+
+---
+<form action="" class="search-form">
+	<div class="search-form__inner">
+		<label for="search-form-input" class="screen-reader-text">
+			Search
+		</label>
+		<input id="seach-form-input" class="search-form__input" type="text" />
+		<button class="search-form__button" type="submit">
+			<span class="screen-reader-text">Search</span>
+			<Icon name="search" />
+		</button>
+	</div>
+</form>
+<style>
+.search-form__input {
+	appearance: none;
+	background-color: transparent;
+	border: 0;
+	color: var(--site-color);
+	flex-grow: 1;
+	padding: 0.5em;
+	width: 100%;
+}
+
+.search-form__inner {
+	background-color: color-mix(in srgb, var(--site-accent) 30%, var(--site-background));
+	border: 1px solid var(--site-accent);
+	border-radius: 0.25rem;
+	display: flex;
+}
+
+.search-form__button {
+	appearance: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: calc(0.25rem - 1px);
+	color: var(--site-color);
+	font-size: 1.25em;
+	margin: 1px;
+	padding: 0.4em 0.5em;
+
+	&:hover {
+		border-color: var(--link-color);
+	}
+}
+</style>

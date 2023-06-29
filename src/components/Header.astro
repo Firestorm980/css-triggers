@@ -1,75 +1,66 @@
 ---
-import Icon from "./Icon.astro";
-import json from '@data/data.json';
+import PrimaryNavigation from "@components/PrimaryNavigation.astro";
+import SearchForm from "@components/SearchForm.astro";
 
 const base = import.meta.env.BASE_URL
-const { data } = json;
-const properties = Object.keys(data);
 ---
 <header class="site-header">
-	<div class="site-header__start">
-		<a class="site-logo" href={base}>
-			{'{} Triggers'}
-		</a>
-	</div>
-	<div class="site-header__end">
-		<a class="icon-link" href="https://github.com/Firestorm980/css-triggers">
-			GitHub Repo
-			<span class="icon icon-github">
-				<Icon icon="github" />
-			</span>
-		</a>
-		<button type="button" id="site-header-disclosure-button-open">
-			Menu
-			<span class="icon icon-menu">
-				<Icon icon="menu" />
-			</span>
-		</button>
-	</div>
-	<div class="site-header__disclosure" id="site-header-disclosure">
-		<div class="site-header__disclosure-header">
-			<button type="button" id="site-header-disclosure-button-close">
-				Close
-				<span class="icon icon-clear">
-					<Icon icon="clear" />
-				</span>
-			</button>
+	<div class="site-header__inner">
+		<div class="site-header__area site-header__area--logo">
+			<a class="site-logo" href={base}>
+				{'{} Triggers'}
+			</a>
 		</div>
-		<div class="site-header__disclosure-content">
-			<nav>
-				<ul>
-					{properties.map((property) => (
-						<li>
-							<a href={`#${property}`}>{property}</a>
-						</li>
-					))}
-				</ul>
-			</nav>
+		<div class="site-header__area site-header__area--navigation">
+			<h2>Properties</h2>
+			<PrimaryNavigation />
 		</div>
 	</div>
 </header>
 <style is:global>
 	.site-header {
-		--header-height: 4.5rem;
-
-		align-items: center;
 		background-color: var(--site-background);
-		border-block-end: 1px solid var(--site-accent);
-		display: flex;
-		height: var(--header-height);
-		justify-content: space-between;
-		left: 0;
-		overflow-inline: hidden;
-		padding: 1rem;
-		position: sticky;
-		top: 0;
-		width: 100%;
+		border-inline-end: 1px solid var(--site-accent);
+
+		@media (width <= 42em) {
+			max-width: 80vw;
+			transform: translateX(-100%);
+			width: 20em;
+			z-index: 1;
+		}
 	}
 
-	.site-header__end {
-		align-items: center;
+	.site-header__inner {
 		display: flex;
-		gap: 1em;
+		flex-direction: column;
+		height: 100dvh;
+		position: sticky;
+		top: 0;
+	}
+
+	.site-header__area {
+		padding-block: 1rem;
+
+		& ~ .site-header__area {
+			border-block-start: 1px solid var(--site-accent);
+		}
+
+		& h2 {
+			color: color-mix(in srgb, var(--site-color) 70%, var(--site-background));
+			font-size: 0.875rem;
+			font-weight: 400;
+			margin: 0;
+			padding-block-end: 1rem;
+			padding-inline: 1rem;
+		}
+	}
+
+	.site-header__area--logo {
+		padding: 1rem;
+	}
+
+	.site-header__area--navigation {
+		overflow: auto;
 	}
 
 	.site-logo {
@@ -81,158 +72,4 @@ const properties = Object.keys(data);
 		font-weight: 700;
 		text-decoration: none;
 	}
-
-	.site-header__disclosure {
-		align-items: flex-end;
-		background-color: var(--site-background);
-		border-inline-start: 1px solid var(--site-accent);
-		display: flex;
-		flex-direction: column;
-		height: 100dvh;
-		opacity: 0;
-		position: fixed;
-		right: 0;
-		top: 0;
-		transform: translateX(100%);
-		transition-duration: 0.25s;
-		transition-property: opacity, transform, visibility;
-		transition-timing-function: ease-in-out;
-		visibility: hidden;
-
-		&[data-open="true"] {
-			opacity: 1;
-			transform: translateX(0);
-			visibility: visible;
-		}
-	}
-
-	.site-header__disclosure-header {
-		border-block-end: 1px solid var(--site-accent);
-		display: flex;
-		height: var(--header-height);
-		justify-content: flex-end;
-		padding: 1rem;
-		width: 100%;
-	}
-
-	.site-header__disclosure-content {
-		height: 100%;
-		overflow: auto;
-		padding: 2rem;
-	}
-
-	.icon {
-		display: flex;
-		font-size: 1.5em;
-	}
-
-	.icon-link {
-		align-items: center;
-		color: var(--site-color);
-		display: inline-flex;
-		font-weight: 700;
-		gap: 0.5em;
-		text-decoration: none;
-
-		&:hover,
-		&:focus {
-			background-color: transparent;
-			color: var(--color-purple);
-			text-decoration: underline;
-		}
-	}
-
-	nav {
-
-		& ul {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5em;
-			list-style: none;
-			margin: 0;
-			padding: 0;
-		}
-	}
 </style>
-<script>
-	const disclosure = document.getElementById('site-header-disclosure');
-	const disclosureButtonOpen = document.getElementById('site-header-disclosure-button-open');
-	const disclosureButtonClose = document.getElementById('site-header-disclosure-button-close');
-
-	const open = (isKeyboard = false) => {
-		disclosure.setAttribute('aria-hidden', 'false');
-		disclosure.setAttribute('data-open', 'true');
-		disclosureButtonOpen.setAttribute('aria-expanded', 'true');
-		disclosureButtonClose.setAttribute('aria-expanded', 'true');
-
-		if (isKeyboard) {
-			disclosureButtonClose.focus();
-		}
-	};
-
-	const close = (isKeyboard = false) => {
-		disclosure.setAttribute('aria-hidden', 'true');
-		disclosure.setAttribute('data-open', 'false');
-		disclosureButtonOpen.setAttribute('aria-expanded', 'false');
-		disclosureButtonClose.setAttribute('aria-expanded', 'false');
-
-		if (isKeyboard) {
-			disclosureButtonOpen.focus();
-		}
-	};
-
-	const handleOpenButtonOnClick = (event) => {
-		const isKeyboard = event.detail === 0;
-
-		open(isKeyboard);
-	};
-
-	const handleCloseButtonOnClick = (event) => {
-		const isKeyboard = event.detail === 0;
-
-		close(isKeyboard);
-	};
-
-	const handleDisclosureOnKeyDown = (event) => {
-		const isEscape = event.key === 'Escape';
-		const isTab = event.key === 'Tab';
-		const isShift = event.shiftKey;
-
-		if (isEscape) {
-			close(true);
-			return;
-		}
-
-		const { activeElement } = document;
-		const focusableElements = disclosure.querySelectorAll('button, [href]');
-		const { [0]: firstFocusableElement, [focusableElements.length - 1]: lastFocusableElement } = focusableElements;
-
-		if (isTab && isShift && activeElement === firstFocusableElement) {
-			event.preventDefault();
-			(lastFocusableElement as HTMLElement).focus();
-			return;
-		}
-
-		if (isTab && !isShift && activeElement === lastFocusableElement) {
-			event.preventDefault();
-			(firstFocusableElement as HTMLElement).focus();
-			return;
-		}
-	};
-
-	const setup = () => {
-		close(false);
-
-		disclosureButtonOpen.setAttribute('aria-controls', disclosure.id);
-		disclosureButtonClose.setAttribute('aria-controls', disclosure.id);
-	};
-
-	const bind = () => {
-		disclosure.addEventListener('keydown', handleDisclosureOnKeyDown);
-		disclosureButtonOpen.addEventListener('click', handleOpenButtonOnClick);
-		disclosureButtonClose.addEventListener('click', handleCloseButtonOnClick);
-	};
-
-	setup();
-	bind();
-</script>
