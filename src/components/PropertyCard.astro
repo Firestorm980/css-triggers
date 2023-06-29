@@ -22,18 +22,16 @@ const { property, initial, change } = Astro.props;
 			<Icon icon="link" />
 		</a>
 	</header>
-
 	<div class="property-card__tables">
 		<PropertyTable results={initial} caption={`Change from default for ${property}`} />
 		<PropertyTable results={change} caption={`Subsequent updates for ${property}`} />
 	</div>
 </section>
-<style>
+<style is:global>
 	.property-card {
-		background-color: var(--color-white);
-		border: 1px solid var(--color-silver);
+		background-color: var(--site-background);
+		border: 1px solid var(--site-accent);
 		border-radius: 0.5em;
-		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
 		display: flex;
 		flex-direction: column;
 		gap: 2em;
@@ -41,12 +39,12 @@ const { property, initial, change } = Astro.props;
 		scroll-margin-block: 5rem;
 
 		&:target {
-			border-color: var(--color-black);
+			border-color: var(--site-color);
 		}
 	}
 
 	.property-card__header {
-		display: flex;
+		display: inline-flex;
 		flex-wrap: wrap;
 		gap: 1em;
 	}

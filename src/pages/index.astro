@@ -19,17 +19,13 @@ const title = "CSS Triggers";
 		</div>
 	</div>
 </Layout>
-<style>
-	.properties {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 2em;
-	}
-
+<style is:global>
 	.properties__content {
-		display: flex;
-		flex-direction: column;
-		gap: 2em;
-		width: 100%;
+		display: grid;
+		gap: 1em;
+		grid-template-columns: 1fr;
+		justify-content: center;
+		margin-inline: auto;
+		max-width: 80ch;
 	}
 </style>
