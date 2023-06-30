@@ -1,66 +1,35 @@
 ---
-import PrimaryNavigation from "@components/PrimaryNavigation.astro";
 import SearchForm from "@components/SearchForm.astro";
+import Icon from "./Icon.astro";
 
 const base = import.meta.env.BASE_URL
 ---
 <header class="site-header">
-	<div class="site-header__inner">
-		<div class="site-header__area site-header__area--logo">
-			<a class="site-logo" href={base}>
-				{'{} Triggers'}
-			</a>
-		</div>
-		<div class="site-header__area site-header__area--navigation">
-			<h2>Properties</h2>
-			<PrimaryNavigation />
-		</div>
-	</div>
+	<button type="button" class="site-header__button site-header__button--menu" id="site-header-button-menu">
+		<span class="screen-reader-text">Menu</span>
+		<Icon name="menu" />
+	</button>
+	<a class="site-logo" href={base} aria-label="CSS Triggers">
+		{'{}'}
+		<span class="site-logo__text">
+			Triggers
+		</span>
+	</a>
+	<SearchForm />
 </header>
 <style is:global>
 	.site-header {
-		background-color: var(--site-background);
-		border-inline-end: 1px solid var(--site-accent);
-
-		@media (width <= 42em) {
-			max-width: 80vw;
-			transform: translateX(-100%);
-			width: 20em;
-			z-index: 1;
-		}
-	}
-
-	.site-header__inner {
+		background-color: var(--site-header-background);
+		box-shadow: 0 0 0.5em var(--site-accent);
 		display: flex;
-		flex-direction: column;
-		height: 100dvh;
+		gap: 1em;
+		grid-area: header-top;
+		justify-content: space-between;
+		max-height: var(--site-header-height);
+		padding: 1em;
 		position: sticky;
 		top: 0;
-	}
-
-	.site-header__area {
-		padding-block: 1rem;
-
-		& ~ .site-header__area {
-			border-block-start: 1px solid var(--site-accent);
-		}
-
-		& h2 {
-			color: color-mix(in srgb, var(--site-color) 70%, var(--site-background));
-			font-size: 0.875rem;
-			font-weight: 400;
-			margin: 0;
-			padding-block-end: 1rem;
-			padding-inline: 1rem;
-		}
-	}
-
-	.site-header__area--logo {
-		padding: 1rem;
-	}
-
-	.site-header__area--navigation {
-		overflow: auto;
+		z-index: 1;
 	}
 
 	.site-logo {
@@ -70,6 +39,106 @@ const base = import.meta.env.BASE_URL
 		color: transparent;
 		font-size: 1.75em;
 		font-weight: 700;
+		margin-inline-end: auto;
 		text-decoration: none;
 	}
+
+	.site-logo__text {
+		@media (width <= 42em) {
+			display: none;
+		}
+	}
+
+	.site-header__button--menu {
+		@media (width >= 42em) {
+			display: none;
+		}
+	}
 </style>
+<script>
+	const mq = window.matchMedia('(width <= 42em)');
+	const siteSidebarInner = document.getElementById('site-sidebar-inner');
+	const siteHeaderButtonMenu = document.getElementById('site-header-button-menu');
+
+	const closeSidebar = (isKeyboard = false) => {
+		siteSidebarInner.setAttribute('aria-hidden', 'true')
+		siteSidebarInner.setAttribute('data-open', 'false');
+		siteSidebarInner.setAttribute('inert', '');
+		siteHeaderButtonMenu.setAttribute('aria-expanded', 'false');
+
+		if (isKeyboard) {
+			siteHeaderButtonMenu.focus();
+		}
+	};
+
+	const openSidebar = (isKeyboard = false) => {
+		siteSidebarInner.setAttribute('aria-hidden', 'false')
+		siteSidebarInner.setAttribute('data-open', 'true');
+		siteSidebarInner.removeAttribute('inert');
+		siteHeaderButtonMenu.setAttribute('aria-expanded', 'true');
+
+		if (isKeyboard) {
+			const element = siteSidebarInner.querySelector('a, button') as HTMLElement;
+			element.focus();
+		}
+	};
+
+	const mediaQueryChange = () => {
+		if (mq.matches) {
+			closeSidebar();
+		} else {
+			openSidebar();
+		}
+	};
+
+	const handleSiteHeaderButtonMenuClick = (event) => {
+		const isKeyboard = event.detail === 0;
+
+		event.stopPropagation();
+
+		if (siteSidebarInner.getAttribute('data-open') === 'true') {
+			closeSidebar(isKeyboard);
+		} else {
+			openSidebar(isKeyboard);
+		}
+	};
+
+	const handleSiteSidebarInnerKeydown = (event) => {
+		const isEscape = event.key === 'Escape';
+		const isTab = event.key === 'Tab';
+		const isShift = event.shiftKey;
+
+		if (isEscape) {
+			closeSidebar(true);
+			return;
+		}
+	};
+
+	const handleSiteSidebarInnerClick = (event) => {
+		event.stopPropagation();
+	};
+
+	const handleDocumentClick = () => {
+		if (!mq.matches) {
+			return;
+		}
+		closeSidebar();
+	};
+
+	const setup = () => {
+		mediaQueryChange();
+
+		siteHeaderButtonMenu.setAttribute('aria-controls', 'site-sidebar');
+	};
+
+	const bind = () => {
+		mq.addEventListener('change', mediaQueryChange);
+		siteHeaderButtonMenu.addEventListener('click', handleSiteHeaderButtonMenuClick);
+		siteSidebarInner.addEventListener('keydown', handleSiteSidebarInnerKeydown);
+		siteSidebarInner.addEventListener('click', handleSiteSidebarInnerClick);
+		document.addEventListener('click', handleDocumentClick);
+	};
+
+	setup();
+	bind();
+</script>

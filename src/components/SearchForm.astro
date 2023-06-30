@@ -1,20 +1,32 @@
 ---
+import json from '@data/data.json';
 import Icon from "@components/Icon.astro";
 
+const { data } = json;
+const properties = Object.keys(data);
 ---
-<form action="" class="search-form">
+<form id="search-form" action="#" class="search-form">
 	<div class="search-form__inner">
 		<label for="search-form-input" class="screen-reader-text">
 			Search
 		</label>
-		<input id="seach-form-input" class="search-form__input" type="text" />
+		<input id="search-form-input" class="search-form__input" type="text" list="search-form-datalist" />
+		<datalist id="search-form-datalist" data-values={properties.join(',')}>
+			{properties.map((property) => (
+				<option value={property} />
+			))}
+		</datalist>
 		<button class="search-form__button" type="submit">
 			<span class="screen-reader-text">Search</span>
 			<Icon name="search" />
 		</button>
 	</div>
 </form>
-<style>
+<style is:global>
+.search-form {
+	flex-grow: 1;
+}
+
 .search-form__input {
 	appearance: none;
 	background-color: transparent;
@@ -47,3 +59,30 @@ import Icon from "@components/Icon.astro";
 	}
 }
 </style>
+<script>
+	const form = document.getElementById('search-form');
+	const input = document.getElementById('search-form-input') as HTMLInputElement;
+	const datalist = document.getElementById('search-form-datalist');
+
+	const isValid = () => {
+		const { value } = input;
+		const properties = datalist.dataset.values.split(',');
+
+		return value.length > 0 && properties.includes(value);
+	};
+
+	const handleFormSubmit = (event) => {
+		const valid = isValid();
+
+		event.preventDefault();
+
+		if (!valid) {
+			window.location.hash = '';
+			return;
+		}
+
+		window.location.hash = input.value;
+	};
+
+	form.addEventListener('submit', handleFormSubmit);
+</script>
