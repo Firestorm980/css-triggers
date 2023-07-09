@@ -13,9 +13,9 @@ const { property, initial, change } = Astro.props;
 ---
 <section id={property} tabindex="-1" class="property-card">
 	<header class="property-card__header">
-		<h2 class="property-card__heading">
+		<h3 class="property-card__heading">
 			{property}
-		</h2>
+		</h3>
 
 		<a href={`#${property}`}>
 			<span class="screen-reader-text">Copy link for {property}</span>
