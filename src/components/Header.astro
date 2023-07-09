@@ -19,14 +19,15 @@ const base = import.meta.env.BASE_URL
 </header>
 <style is:global>
 	.site-header {
+		align-items: center;
 		background-color: var(--site-header-background);
 		box-shadow: 0 0 0.5em var(--site-accent);
 		display: flex;
 		gap: 1em;
 		grid-area: header-top;
+		height: var(--site-header-height);
 		justify-content: space-between;
-		max-height: var(--site-header-height);
-		padding: 1em;
+		padding: var(--spacing-default);
 		position: sticky;
 		top: 0;
 		z-index: 1;

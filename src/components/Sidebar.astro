@@ -38,7 +38,7 @@ import PrimaryNavigation from "@components/PrimaryNavigation.astro";
 	}
 
 	.site-sidebar__area {
-		padding-block: 1rem;
+		padding-block: var(--spacing-default);
 
 		& ~ .site-sidebar__area {
 			border-block-start: 1px solid var(--site-accent);
@@ -50,7 +50,7 @@ import PrimaryNavigation from "@components/PrimaryNavigation.astro";
 			font-weight: 400;
 			margin: 0;
 			padding-block-end: 0.5rem;
-			padding-inline: 1rem;
+			padding-inline: var(--spacing-default);
 		}
 	}
 

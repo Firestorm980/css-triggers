@@ -35,7 +35,7 @@ const { property, initial, change } = Astro.props;
 		display: flex;
 		flex-direction: column;
 		gap: 2em;
-		padding: 1em;
+		padding: var(--spacing-default);
 		scroll-margin-block: calc(var(--site-header-height) + 1em);
 
 		&:target {

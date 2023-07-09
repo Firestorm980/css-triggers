@@ -48,6 +48,9 @@
 	/* Link */
 	--link-color: var(--color-blue);
 
+	/* Spacing */
+	--spacing-default: clamp(0.5em, calc(-0.5em + 5vw), 1em);
+
 	@media (prefers-color-scheme: dark) {
 		/* Site */
 		--site-background: var(--color-gray-800);
