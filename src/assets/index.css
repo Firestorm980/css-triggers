@@ -36,6 +36,7 @@
 	--site-accent: var(--color-gray-300);
 	--site-header-height: calc(74 / 16 * 1rem);
 	--site-header-background: var(--color-white);
+	--site-sidebar-width: 15em;
 
 	/* Scrollbar */
 	--scrollbar-color: var(--color-gray-400);

@@ -38,7 +38,7 @@ const { title } = Astro.props;
 			"header-top header-top"
 			"header-sidebar content"
 		;
-		grid-template-columns: 20em 1fr;
+		grid-template-columns: var(--site-sidebar-width) 1fr;
 
 		@media (width <= 42em) {
 			grid-template-columns: 0 1fr;
