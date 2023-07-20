@@ -1,4 +1,7 @@
 ---
+
+import ReloadPrompt from '@components/ReloadPrompt.astro';
+
 import Head from '@components/Head.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
@@ -27,6 +30,7 @@ const { title } = Astro.props;
 		</main>
 		<Footer />
 	</div>
+	<ReloadPrompt />
 </body>
 </html>
 <style is:global>
