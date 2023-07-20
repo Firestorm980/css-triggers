@@ -1,7 +1,7 @@
 ---
-const { icon } = Astro.props;
+const { name } = Astro.props;
 ---
-<svg aria-hidden="true"><use xlink:href={`#icon-${icon}`}></use></svg>
+<svg aria-hidden="true"><use xlink:href={`#icon-${name}`}></use></svg>
 
 <style>
 	svg {

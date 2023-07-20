@@ -1,0 +1,77 @@
+---
+import PrimaryNavigation from "@components/PrimaryNavigation.astro";
+---
+<div class="site-sidebar" id="site-sidebar">
+	<div class="site-sidebar__inner" id="site-sidebar-inner">
+		<div class="site-sidebar__area site-sidebar__area--navigation">
+			<h2>Properties</h2>
+			<PrimaryNavigation />
+		</div>
+	</div>
+</div>
+<style is:global>
+	.site-sidebar {
+		grid-area: header-sidebar;
+	}
+
+	.site-sidebar__inner {
+		background-color: var(--site-background);
+		border-inline-end: 1px solid var(--site-accent);
+		box-shadow: 0 0 0.5em var(--body-background);
+		display: flex;
+		flex-direction: column;
+		height: calc(100dvh - var(--site-header-height));
+		position: sticky;
+		top: var(--site-header-height);
+		width: var(--site-sidebar-width);
+
+		@media (width <= 42em) {
+			transform: translateX(-100%);
+			transition-duration: 0.2s;
+			transition-property: transform;
+			transition-timing-function: ease-in-out;
+
+			&[data-open="true"] {
+				transform: translateX(0);
+			}
+		}
+	}
+
+	.site-sidebar__area {
+		padding-block: var(--spacing-default);
+
+		& ~ .site-sidebar__area {
+			border-block-start: 1px solid var(--site-accent);
+		}
+
+		& h2 {
+			color: color-mix(in srgb, var(--site-color) 70%, var(--site-background));
+			font-size: 0.875rem;
+			font-weight: 400;
+			margin: 0;
+			padding-block-end: 0.5rem;
+			padding-inline: var(--spacing-default);
+		}
+	}
+
+	.site-sidebar__area--navigation {
+		overflow: auto;
+	}
+</style>
+<script>
+	const mq = window.matchMedia("(width <= 42em)");
+	const siteSidebarInner = document.getElementById("site-sidebar-inner");
+
+	const mediaQueryChange = () => {
+		if (mq.matches) {
+			siteSidebarInner.setAttribute('aria-hidden', 'true');
+			siteSidebarInner.setAttribute('inert', '');
+		} else {
+			siteSidebarInner.setAttribute('aria-hidden', 'false');
+			siteSidebarInner.removeAttribute('inert');
+		}
+	}
+
+	mediaQueryChange();
+	mq.addEventListener('change', mediaQueryChange);
+</script>

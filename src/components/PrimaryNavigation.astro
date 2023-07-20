@@ -1,0 +1,39 @@
+---
+import json from '@data/data.json';
+
+const { data } = json;
+const properties = Object.keys(data);
+---
+<nav class="primary-navigation" aria-label="Primary Navigation">
+	<ul>
+		{properties.map((property) => (
+			<li>
+				<a href={`#${property}`}>{property}</a>
+			</li>
+		))}
+	</ul>
+</nav>
+<style is:global>
+	.primary-navigation {
+
+		& ul {
+			display: flex;
+			flex-direction: column;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		& li {
+			padding: 0 0.5em;
+		}
+
+		& a {
+			border-radius: 0.25em;
+			color: var(--site-color);
+			display: block;
+			padding: 0.5em;
+			text-decoration: none;
+		}
+	}
+</style>

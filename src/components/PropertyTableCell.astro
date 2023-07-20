@@ -32,42 +32,16 @@ switch (value) {
 		{text}
 	</span>
 	<span class={`icon icon-${icon}`}>
-		<Icon icon={icon} />
+		<Icon name={icon} />
 	</span>
 </td>
-<style>
-	td {
-		text-align: center;
-	}
-
-	.icon {
-		border-radius: 0.5em;
-		color: white;
-		display: flex;
-		fill: currentcolor;
-		justify-content: center;
-		overflow: hidden;
-		padding: 0.25em;
-		width: 4em;
-
-		& svg {;
-			fill: currentcolor;
-			height: 1em;
-			vertical-align: middle;
-			width: 1em;
-		}
-	}
-
-	.icon-clear {
-		color: black;
-	}
-
+<style is:global>
 	.kind-layout .icon {
 		background-color: var(--color-purple);
 	}
 
 	.kind-layout .icon-clear {
-		background-color: color-mix(in srgb, var(--color-purple) 20%, var(--color-white) );
+		background-color: color-mix(in srgb, var(--color-purple) 20%, var(--site-background) );
 	}
 
 	.kind-composite .icon {
@@ -75,7 +49,7 @@ switch (value) {
 	}
 
 	.kind-composite .icon-clear {
-		background-color: color-mix(in srgb, var(--color-green) 20%, var(--color-white) );
+		background-color: color-mix(in srgb, var(--color-green) 20%, var(--site-background) );
 	}
 
 	.kind-paint .icon {
@@ -83,11 +57,37 @@ switch (value) {
 	}
 
 	.kind-paint .icon-clear {
-		background-color: color-mix(in srgb, var(--color-olive) 20%, var(--color-white) );
+		background-color: color-mix(in srgb, var(--color-olive) 20%, var(--site-background) );
 	}
 
-	.kind .icon-remove {
-		background-color: var(--color-silver);
-		color: var(--color-black);
+	.kind {
+		text-align: center;
+
+		& .icon {
+			border-radius: 0.5em;
+			color: var(--color-white);
+			display: flex;
+			fill: currentcolor;
+			justify-content: center;
+			overflow: hidden;
+			padding: 0.25em;
+			width: 4em;
+
+			& svg {;
+				fill: currentcolor;
+				height: 1em;
+				vertical-align: middle;
+				width: 1em;
+			}
+		}
+
+		& .icon-clear {
+			color: var(--site-color);
+		}
+
+		& .icon-remove {
+			background-color: var(--site-background);
+			color: var(--site-color);
+		}
 	}
 </style>

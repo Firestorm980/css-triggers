@@ -4,18 +4,15 @@ const year = new Date().getFullYear();
 <footer class="site-footer" role="contentinfo">
     <p>Copyright &copy; {year}. Made with ❤️ and <a href="https://astro.build">{Astro.generator}</a> by Jon Michael Christensen. Check out <a href="https://github.com/Firestorm980/css-triggers">this site's repo</a> on Github.</p>
 </footer>
-<style>
+<style is:global>
 .site-footer {
-	background-color: var(--color-black);
-	color: var(--color-white);
+	background-color: var(--site-background);
+	border-block-start: 1px solid var(--site-accent);
+	display: none;
 	padding: 1em;
 
 	& p {
 		margin: 0;
-	}
-
-	& a {
-		--link-color: var(--color-aqua);
 	}
 }
 </style>

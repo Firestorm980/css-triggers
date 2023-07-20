@@ -1,246 +1,143 @@
 ---
+import SearchForm from "@components/SearchForm.astro";
 import Icon from "./Icon.astro";
-import json from '@data/data.json';
 
 const base = import.meta.env.BASE_URL
-const { data } = json;
-const properties = Object.keys(data);
 ---
 <header class="site-header">
-	<div class="site-header__start">
-		<a class="site-logo" href={base}>
-			CSS Triggers
-		</a>
-	</div>
-	<div class="site-header__end">
-		<a class="icon-link" href="https://github.com/Firestorm980/css-triggers">
-			GitHub Repo
-			<span class="icon icon-github">
-				<Icon icon="github" />
-			</span>
-		</a>
-		<button type="button" id="site-header-disclosure-button-open">
-			Menu
-			<span class="icon icon-menu">
-				<Icon icon="menu" />
-			</span>
-		</button>
-	</div>
-	<div class="site-header__disclosure" id="site-header-disclosure">
-		<div class="site-header__disclosure-header">
-			<button type="button" id="site-header-disclosure-button-close">
-				Close
-				<span class="icon icon-clear">
-					<Icon icon="clear" />
-				</span>
-			</button>
-		</div>
-		<div class="site-header__disclosure-content">
-			<nav>
-				<ul>
-					{properties.map((property) => (
-						<li>
-							<a href={`#${property}`}>{property}</a>
-						</li>
-					))}
-				</ul>
-			</nav>
-		</div>
-	</div>
+	<button type="button" class="site-header__button site-header__button--menu" id="site-header-button-menu">
+		<span class="screen-reader-text">Menu</span>
+		<Icon name="menu" />
+	</button>
+	<a class="site-logo" href={base} aria-label="CSS Triggers">
+		{'{}'}
+		<span class="site-logo__text">
+			Triggers
+		</span>
+	</a>
+	<SearchForm />
 </header>
-<style>
+<style is:global>
 	.site-header {
-		--header-height: 4.5rem;
-
 		align-items: center;
-		background-color: var(--color-white);
-		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
-		display: flex;
-		height: var(--header-height);
-		justify-content: space-between;
-		left: 0;
-		overflow-inline: hidden;
-		padding: 1rem;
-		position: sticky;
-		top: 0;
-		width: 100%;
-	}
-
-	.site-header__end {
-		align-items: center;
+		background-color: var(--site-header-background);
+		box-shadow: 0 0 0.5em var(--site-accent);
 		display: flex;
 		gap: 1em;
+		grid-area: header-top;
+		height: var(--site-header-height);
+		justify-content: space-between;
+		padding: var(--spacing-default);
+		position: sticky;
+		top: 0;
+		z-index: 1;
 	}
 
 	.site-logo {
 		background-clip: text;
-		background-color: var(--color-black);
+		background-color: var(--site-color);
 		background-image: linear-gradient(to right, var(--color-purple) 0%, var(--color-olive) 50%, var(--color-green) 100%);
 		color: transparent;
 		font-size: 1.75em;
 		font-weight: 700;
+		margin-inline-end: auto;
 		text-decoration: none;
 	}
 
-	.site-header__disclosure {
-		align-items: flex-end;
-		background-color: var(--color-white);
-		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
-		display: flex;
-		flex-direction: column;
-		height: 100dvh;
-		position: fixed;
-		right: 0;
-		top: 0;
-		transform: translateX(100%);
-		transition: transform 0.25s ease-in-out;
-
-		&[data-open="true"] {
-			transform: translateX(0);
+	.site-logo__text {
+		@media (width <= 42em) {
+			display: none;
 		}
 	}
 
-	.site-header__disclosure-header {
-		height: var(--header-height);
-		padding: 1rem;
-	}
-
-	.site-header__disclosure-content {
-		border-block-start: 1px solid var(--color-silver);
-		height: 100%;
-		overflow: auto;
-		padding: 2rem;
-	}
-
-	.icon {
-		display: flex;
-		font-size: 1.5em;
-	}
-
-	.icon-link {
-		align-items: center;
-		color: var(--color-black);
-		display: inline-flex;
-		font-weight: 700;
-		gap: 0.5em;
-		text-decoration: none;
-
-		&:hover,
-		&:focus {
-			background-color: transparent;
-			color: var(--color-purple);
-		}
-	}
-
-	button {
-		align-items: center;
-		background-color: var(--color-black);
-		border: 0;
-		border-radius: 0.25em;
-		color: var(--color-white);
-		display: inline-flex;
-		font-weight: 700;
-		gap: 0.25em;
-		line-height: 1;
-		padding: 0.5em 1em;
-		transition-duration: 0.25s;
-		vertical-align: middle;
-
-		&:hover,
-		&:focus {
-			background-color: var(--color-purple);
-		}
-	}
-
-	nav {
-
-		& ul {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5em;
-			list-style: none;
-			margin: 0;
-			padding: 0;
+	.site-header__button--menu {
+		@media (width >= 42em) {
+			display: none;
 		}
 	}
 </style>
 <script>
-	const disclosure = document.getElementById('site-header-disclosure');
-	const disclosureButtonOpen = document.getElementById('site-header-disclosure-button-open');
-	const disclosureButtonClose = document.getElementById('site-header-disclosure-button-close');
+	const mq = window.matchMedia('(width <= 42em)');
+	const siteSidebarInner = document.getElementById('site-sidebar-inner');
+	const siteHeaderButtonMenu = document.getElementById('site-header-button-menu');
 
-	const open = (isKeyboard = false) => {
-		disclosure.setAttribute('aria-hidden', 'false');
-		disclosure.setAttribute('data-open', 'true');
-		disclosureButtonOpen.setAttribute('aria-expanded', 'true');
-		disclosureButtonClose.setAttribute('aria-expanded', 'true');
+	const closeSidebar = (isKeyboard = false) => {
+		siteSidebarInner.setAttribute('aria-hidden', 'true')
+		siteSidebarInner.setAttribute('data-open', 'false');
+		siteSidebarInner.setAttribute('inert', '');
+		siteHeaderButtonMenu.setAttribute('aria-expanded', 'false');
 
 		if (isKeyboard) {
-			disclosureButtonClose.focus();
+			siteHeaderButtonMenu.focus();
 		}
 	};
 
-	const close = (isKeyboard = false) => {
-		disclosure.setAttribute('aria-hidden', 'true');
-		disclosure.setAttribute('data-open', 'false');
-		disclosureButtonOpen.setAttribute('aria-expanded', 'false');
-		disclosureButtonClose.setAttribute('aria-expanded', 'false');
+	const openSidebar = (isKeyboard = false) => {
+		siteSidebarInner.setAttribute('aria-hidden', 'false')
+		siteSidebarInner.setAttribute('data-open', 'true');
+		siteSidebarInner.removeAttribute('inert');
+		siteHeaderButtonMenu.setAttribute('aria-expanded', 'true');
 
 		if (isKeyboard) {
-			disclosureButtonOpen.focus();
+			const element = siteSidebarInner.querySelector('a, button') as HTMLElement;
+			element.focus();
 		}
 	};
 
-	const handleOpenButtonOnClick = (event) => {
-		const isKeyboard = event.detail === 0;
-
-		open(isKeyboard);
+	const mediaQueryChange = () => {
+		if (mq.matches) {
+			closeSidebar();
+		} else {
+			openSidebar();
+		}
 	};
 
-	const handleCloseButtonOnClick = (event) => {
+	const handleSiteHeaderButtonMenuClick = (event) => {
 		const isKeyboard = event.detail === 0;
 
-		close(isKeyboard);
+		event.stopPropagation();
+
+		if (siteSidebarInner.getAttribute('data-open') === 'true') {
+			closeSidebar(isKeyboard);
+		} else {
+			openSidebar(isKeyboard);
+		}
 	};
 
-	const handleDisclosureOnKeyDown = (event) => {
+	const handleSiteSidebarInnerKeydown = (event) => {
 		const isEscape = event.key === 'Escape';
 		const isTab = event.key === 'Tab';
 		const isShift = event.shiftKey;
 
 		if (isEscape) {
-			close(true);
+			closeSidebar(true);
 			return;
 		}
+	};
 
-		const { activeElement } = document;
-		const focusableElements = disclosure.querySelectorAll('button, [href]');
-		const { [0]: firstFocusableElement, [focusableElements.length - 1]: lastFocusableElement } = focusableElements;
+	const handleSiteSidebarInnerClick = (event) => {
+		event.stopPropagation();
+	};
 
-		if (isTab && isShift && activeElement === firstFocusableElement) {
-			event.preventDefault();
-			(lastFocusableElement as HTMLElement).focus();
+	const handleDocumentClick = () => {
+		if (!mq.matches) {
 			return;
 		}
-
-		if (isTab && !isShift && activeElement === lastFocusableElement) {
-			event.preventDefault();
-			(firstFocusableElement as HTMLElement).focus();
-			return;
-		}
+		closeSidebar();
 	};
 
 	const setup = () => {
-		close(false);
+		mediaQueryChange();
 
-		disclosureButtonOpen.setAttribute('aria-controls', disclosure.id);
-		disclosureButtonClose.setAttribute('aria-controls', disclosure.id);
+		siteHeaderButtonMenu.setAttribute('aria-controls', 'site-sidebar');
 	};
 
 	const bind = () => {
-		disclosure.addEventListener('keydown', handleDisclosureOnKeyDown);
-		disclosureButtonOpen.addEventListener('click', handleOpenButtonOnClick);
-		disclosureButtonClose.addEventListener('click', handleCloseButtonOnClick);
+		mq.addEventListener('change', mediaQueryChange);
+		siteHeaderButtonMenu.addEventListener('click', handleSiteHeaderButtonMenuClick);
+		siteSidebarInner.addEventListener('keydown', handleSiteSidebarInnerKeydown);
+		siteSidebarInner.addEventListener('click', handleSiteSidebarInnerClick);
+		document.addEventListener('click', handleDocumentClick);
 	};
 
 	setup();

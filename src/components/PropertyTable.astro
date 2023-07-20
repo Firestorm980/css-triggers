@@ -12,7 +12,7 @@ const browsers = Object.keys(results).filter((browser) => browser !== 'edgehtml'
 const kinds = ['layout', 'paint', 'composite'];
 ---
 
-<table>
+<table class="property-table">
     <thead>
         <tr>
             <th></th>
@@ -29,25 +29,26 @@ const kinds = ['layout', 'paint', 'composite'];
     </tbody>
     <caption>{caption}</caption>
 </table>
-<style>
-	table {
-		border-collapse: collapse;
-		caption-side: bottom;
-	}
+<style is:global>
+.property-table {
+	border-collapse: collapse;
+	caption-side: bottom;
 
-	th, td {
+	& th {
+		font-size: 0.8em;
 		padding: 0.5em;
 		text-align: center;
 	}
 
-	tbody th {
+	& tbody th {
 		text-align: end;
 	}
 
-	caption {
+	& caption {
 		font-size: 0.8em;
 		font-style: italic;
 		padding: 0.5em;
 		text-align: end;
 	}
+}
 </style>

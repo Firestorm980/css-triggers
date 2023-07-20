@@ -13,42 +13,45 @@ const { property, initial, change } = Astro.props;
 ---
 <section id={property} tabindex="-1" class="property-card">
 	<header class="property-card__header">
-		<h2 class="property-card__heading">
+		<h3 class="property-card__heading">
 			{property}
-		</h2>
+		</h3>
 
 		<a href={`#${property}`}>
 			<span class="screen-reader-text">Copy link for {property}</span>
-			<Icon icon="link" />
+			<Icon name="link" />
 		</a>
 	</header>
-
 	<div class="property-card__tables">
 		<PropertyTable results={initial} caption={`Change from default for ${property}`} />
 		<PropertyTable results={change} caption={`Subsequent updates for ${property}`} />
 	</div>
 </section>
-<style>
+<style is:global>
 	.property-card {
-		background-color: var(--color-white);
-		border: 1px solid var(--color-silver);
+		background-color: var(--site-background);
+		border: 1px solid var(--site-accent);
 		border-radius: 0.5em;
-		box-shadow: 0 0 0.5em rgb(0 0 0 / 20%);
 		display: flex;
 		flex-direction: column;
 		gap: 2em;
-		padding: 1em;
-		scroll-margin-block: 5rem;
+		padding: var(--spacing-default);
+		scroll-margin-block: calc(var(--site-header-height) + 1em);
 
 		&:target {
-			border-color: var(--color-black);
+			border-color: var(--site-color);
 		}
 	}
 
 	.property-card__header {
-		display: flex;
+		display: inline-flex;
 		flex-wrap: wrap;
 		gap: 1em;
+
+		& a {
+			border-radius: 0.25em;
+			padding: 0 0.5em;
+		}
 	}
 
 	.property-card__heading {
