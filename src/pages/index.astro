@@ -50,13 +50,13 @@ const firstLetters = Object.keys(organizedProperties);
 	}
 
 	.properties__letter {
-		scroll-margin-block: calc(var(--site-header-height) + 1em);
+		scroll-margin-block: calc(var(--site-header-height) + 1rem);
 	}
 
 	.properties__letters {
 		display: flex;
 		flex-direction: column;
-		height: calc(100dvh - var(--site-header-height) - 2em);
+		height: calc(100dvh - var(--site-header-height) - 3rem);
 		justify-content: space-evenly;
 		list-style: none;
 		margin: 0;
@@ -66,12 +66,17 @@ const firstLetters = Object.keys(organizedProperties);
 		top: var(--site-header-height);
 
 		& a {
+			aspect-ratio: 1;
 			border-radius: 0.25em;
+			color: var(--site-color);
 			display: flex;
+			height: 2rem;
 			justify-content: center;
-			line-height: 1;
+			line-height: 1.25;
 			padding: 0.25em;
 			text-align: center;
+			text-decoration: none;
+			width: 2rem;
 
 			&:hover,
 			&:focus {
