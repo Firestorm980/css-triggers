@@ -11,11 +11,11 @@
     "host": "astro dev --host"
   },
   "dependencies": {
-    "astro": "^2.7.1",
+    "astro": "^4.4.4",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "@vite-pwa/astro": "^0.1.1",
+    "@vite-pwa/astro": "^0.3.0",
     "eslint": "^8.43.0",
     "eslint-config-standard": "^17.1.0",
     "postcss-html": "^1.5.0",
