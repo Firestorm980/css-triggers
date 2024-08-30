@@ -3,5 +3,6 @@
     "css",
     "postcss",
     "astro"
-  ]
+  ],
+  "eslint.useFlatConfig": true
 }

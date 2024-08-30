@@ -11,18 +11,20 @@
     "host": "astro dev --host"
   },
   "dependencies": {
-    "astro": "^4.4.4",
+    "astro": "^4.15.1",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "@vite-pwa/astro": "^0.3.0",
-    "eslint": "^8.43.0",
-    "eslint-config-standard": "^17.1.0",
+    "@eslint/js": "^8.57.0",
+    "@vite-pwa/astro": "^0.4.0",
+    "eslint": "^8.57.0",
+    "globals": "^15.9.0",
     "postcss-html": "^1.5.0",
-    "postcss-preset-env": "^8.5.0",
-    "stylelint": "^15.8.0",
+    "postcss-preset-env": "^10.0.2",
+    "stylelint": "^16.9.0",
     "stylelint-config-astro": "^1.0.4",
-    "stylelint-config-standard": "^33.0.0",
-    "stylelint-order": "^6.0.3"
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-order": "^6.0.3",
+    "typescript-eslint": "^7.2.0"
   }
 }
