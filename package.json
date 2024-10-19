@@ -11,7 +11,7 @@
     "host": "astro dev --host"
   },
   "dependencies": {
-    "astro": "^4.15.1",
+    "astro": "^4.16.6",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
